@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+  <head><title>HTML5: Zero to Hero</title></head>
+  <body>
+    <canvas id="myCanvas" width="600" height="600" ></canvas>
+    <script type="text/javascript" src="CAAT/build/caat.js"></script>
+    <script type="text/javascript">
+      var px = 200, py = 400;
+      
+      function createScenes(director) {
+        var scene = director.createScene();
+        scene.addChild(
+          new CAAT.Foundation.Actor().
+            setBackgroundImage( director.getImage('space') ).
+            setBounds(0, 0, 500, 500)
+        );
+        scene.addChild(
+          new CAAT.Foundation.Actor().
+            setBackgroundImage( director.getImage('ufo') ).
+            setBounds(px, py, 40, 30)
+        );
+      };
+
+      window.addEventListener('load',
+        function() {
+          CAAT.Module.Initialization.Template.init(
+            500, 500, "myCanvas", 
+            [{id:'ufo', url:'ufo.png'}, {id:'space', url:'space.gif'}], 
+            createScenes);
+        }, false);
+    </script>
+</body>
+</html>

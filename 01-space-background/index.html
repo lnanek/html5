@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html>
+  <head><title>HTML5: Zero to Hero</title></head>
+  <body>
+    <canvas id="myCanvas" width="600" height="600" ></canvas>
+    <script>
+      var context = document.getElementById('myCanvas').getContext('2d');
+      var background = new Image();
+      background.src = 'space.gif';
+
+      requestAnimationFrame(update);
+      function update() {
+	    requestAnimationFrame(update);
+        context.drawImage(background, 0, 0);
+      }
+    </script>
+  </body>
+</html>

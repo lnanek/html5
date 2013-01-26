@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+  <head><title>HTML5: Zero to Hero</title></head>
+  <body>
+    <canvas id="myCanvas" width="600" height="600" ></canvas>
+    <script>
+      var context = document.getElementById('myCanvas').getContext('2d');
+      var background = new Image();
+      background.src = 'space.gif';
+
+	  var ufo = new Image();
+	  ufo.src = "ufo.png";
+      var px = 200, py = 400, vx = -20, vy = 10;
+      var lastFrame;
+
+      var score = 0;
+
+      requestAnimationFrame(update);
+      function update() {
+		requestAnimationFrame(update);
+        context.drawImage(background, 0, 0);
+
+		var now = new Date();
+		if (lastFrame) {
+		  var deltaMs = now - lastFrame;
+		  px += vx * deltaMs / 1000;
+	  	  py += vy * deltaMs / 1000;
+	  	  px = px >= context.canvas.width ? 0 : px < 0 ? context.canvas.width : px;
+	  	  py = py >= context.canvas.height ? 0 : py < 0 ? context.canvas.height : py;
+  	      context.drawImage(ufo, px, py);
+		}
+		lastFrame = now;
+
+		context.lineWidth=1;
+		context.fillStyle="#FFFFFF";
+		context.font="32px sans-serif";
+		context.fillText(score, 40, 40);
+      }
+
+      context.canvas.onclick = function(event) {
+    	event = event || window.event;
+        var x = event.pageX - context.canvas.offsetLeft;
+        var y = event.pageY - context.canvas.offsetTop;
+        if ( x > px && x < px + ufo.width && y > py && y < py + ufo.height ) {
+        	score++;
+        	px = Math.random() * context.canvas.width;
+        	py = Math.random() * context.canvas.height;
+        	vx = (Math.random() > 0.5 ? 1 : -1) * (Math.random() * Math.abs(vx) + Math.abs(vx));
+        	vy = (Math.random() > 0.5 ? 1 : -1) * (Math.random() * Math.abs(vy) + Math.abs(vy));
+        }
+      };
+    </script>
+  </body>
+</html>
